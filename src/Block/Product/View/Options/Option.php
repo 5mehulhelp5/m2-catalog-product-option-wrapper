@@ -22,4 +22,22 @@ class Option extends Template
     {
         return $this->getData('option_html');
     }
+
+    public function getOptionTitle(): string
+    {
+        return ltrim(
+            strtolower(
+                preg_replace(
+                    '/[A-Z]([A-Z](?![a-z]))*/',
+                    '_$0',
+                    preg_replace(
+                        '/\s/',
+                        '_',
+                        $this->getOption()->getTitle()
+                    )
+                )
+            ),
+            '_'
+        );
+    }
 }

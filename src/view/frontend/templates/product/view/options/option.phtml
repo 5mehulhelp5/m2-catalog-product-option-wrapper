@@ -17,6 +17,6 @@ use Magento\Framework\View\TemplateEngine\Php;
 $option = $block->getOption();
 ?>
 
-<div id="product-option-<?= $option->getId(); ?>" data-option-id="<?= $option->getId(); ?>" class="field-wrapper">
+<div id="product-option-<?= $option->getId(); ?>" data-option-id="<?= $option->getId(); ?>" class="field-wrapper field-wrapper-<?= $option->getType(); ?> field-wrapper-<?= $block->getOptionTitle(); ?> <?php if ($option->getData('code')): ?> field-wrapper-<?= $option->getData('code'); ?><?php endif; ?>">
     <?= $block->getOptionHtml(); ?>
 </div>
