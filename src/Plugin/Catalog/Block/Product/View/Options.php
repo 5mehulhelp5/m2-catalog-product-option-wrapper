@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Infrangible\CatalogProductOptionWrapper\Plugin\Catalog\Block\Product\View;
 
+use Infrangible\CatalogProductOptionWrapper\Helper\Data;
 use Magento\Catalog\Model\Product\Option;
 
 /**
@@ -13,28 +14,23 @@ use Magento\Catalog\Model\Product\Option;
  */
 class Options
 {
+    /** @var Data */
+    protected $helper;
+
+    public function __construct(Data $helper)
+    {
+        $this->helper = $helper;
+    }
+
     public function afterGetOptionHtml(
         \Magento\Catalog\Block\Product\View\Options $subject,
         string $result,
         Option $option
     ): string {
-        /** @var \Infrangible\CatalogProductOptionWrapper\Block\Product\View\Options\Option $block */
-        $block = $subject->getChildBlock('product_info_options_option');
-
-        if ($block) {
-            $block->setData(
-                'option',
-                $option
-            );
-
-            $block->setData(
-                'option_html',
-                $result
-            );
-
-            return $block->toHtml();
-        } else {
-            return $result;
-        }
+        return $this->helper->renderWrapper(
+            $subject,
+            $option,
+            $result
+        );
     }
 }
