@@ -2,21 +2,25 @@
 
 declare(strict_types=1);
 
-use Infrangible\CatalogProductOptionWrapper\Block\Product\View\Options\Option;
-use Magento\Framework\View\TemplateEngine\Php;
-
 /**
  * @author      Andreas Knollmann
- * @copyright   2014-2025 Softwareentwicklung Andreas Knollmann
+ * @copyright   Copyright (c) 2014-2026 Softwareentwicklung Andreas Knollmann
  * @license     http://www.opensource.org/licenses/mit-license.php MIT
  */
 
-/** @var Php $this */
+use Infrangible\CatalogProductOptionWrapper\Block\Product\View\Options\Option;
+use Magento\Framework\Escaper;
+
+/** @var Escaper $escaper */
 /** @var Option $block */
 
-$option = $block->getOption();
+$optionId = $escaper->escapeHtmlAttr((string)$block->getOptionId());
+$classes = array_map(
+    fn(string $class): string => $escaper->escapeHtmlAttr($class),
+    $block->getWrapperClasses()
+);
 ?>
-
-<div id="product-option-<?= $option->getId(); ?>" data-option-id="<?= $option->getId(); ?>" class="field-wrapper field-wrapper-<?= $option->getType(); ?> field-wrapper-<?= $block->getOptionTitle(); ?> <?php if ($option->getData('code')): ?> field-wrapper-<?= $option->getData('code'); ?><?php endif; ?>">
-    <?= $block->getOptionHtml(); ?>
+<div id="product-option-<?= /* @noEscape */ $optionId ?>" data-option-id="<?= /* @noEscape */ $optionId ?>"
+     class="<?= /* @noEscape */ implode(' ', $classes) ?>">
+    <?= /* @noEscape */ $block->getOptionHtml() ?>
 </div>
