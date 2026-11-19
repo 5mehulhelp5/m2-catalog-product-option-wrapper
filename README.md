@@ -9,7 +9,7 @@ classes:
 - `field-wrapper-<title>`: the title of the option in lower case, with spaces replaced by underscores and an underscore
   before upper case letters, for example `field-wrapper-gift__wrap` for "Gift Wrap"
 - `field-wrapper-<code>`, if the option has a code (for example from
-  [Infrangible Catalog Product Option Code](https://github.com/infrangible-dev/m2-catalog-product-option-code))
+  [Infrangible Catalog Product Option Code](https://www.infrangible.dev/modules/catalog-product-option-code))
 
 ## Requirements
 
